@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Specify the gemspec from the parent directory (includes all dependencies)
 gemspec path: '../..'
@@ -9,5 +9,5 @@ gem 'sims-common', path: '../../../sims-common'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 end

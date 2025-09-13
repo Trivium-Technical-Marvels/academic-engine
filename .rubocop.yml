@@ -1,19 +1,19 @@
 plugins:
-- rubocop-rails
-- rubocop-performance
-- rubocop-rspec
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.3.8 # or read from .ruby-version
+  TargetRubyVersion: 3.2 # or read from .ruby-version
   Exclude:
-  - "bin/**/*"
-  - "db/schema.rb"
-  - "db/migrate/*"
-  - "config/**/*"
-  - "node_modules/**/*"
-  - "vendor/**/*"
-  - "tmp/**/*"
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "config/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
 
   DisplayStyleGuide: true
   SuggestExtensions: false
@@ -73,7 +73,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false # don’t force "# frozen_string_literal: true"
 
 Style/Documentation:
-  Enabled: true
+  Enabled: false
 
 Style/HashSyntax:
   EnforcedStyle: ruby19
@@ -94,9 +94,9 @@ Naming/PredicatePrefix:
 # =======================
 Metrics/BlockLength:
   Exclude:
-  - "spec/**/*"
-  - "test/**/*"
-  - "config/routes.rb"
+    - "spec/**/*"
+    - "test/**/*"
+    - "config/routes.rb"
 
 Metrics/MethodLength:
   Max: 30

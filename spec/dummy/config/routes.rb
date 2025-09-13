@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Academic::Engine::Engine => "/academics"
+  mount Academic::Engine::Engine => '/academics'
 end
