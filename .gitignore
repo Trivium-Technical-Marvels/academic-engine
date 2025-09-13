@@ -1,0 +1,68 @@
+# Bundler
+/.bundle/
+/vendor/bundle/
+
+# Documentation
+/doc/
+/.yardoc/
+
+# Gem packaging
+/pkg/
+*.gem
+
+# Logs
+/log/*.log
+/spec/dummy/log/*.log
+/spec/dummy/tmp/
+
+# Temporary files
+/tmp/
+*.tmp
+*.swp
+*.swo
+*~
+
+# RSpec
+/spec/examples.txt
+/coverage/
+
+# Rails dummy app
+/spec/dummy/db/*.sqlite3
+/spec/dummy/db/*.sqlite3-*
+/spec/dummy/storage/
+/spec/dummy/tmp/
+
+# IDE files
+/.vscode/
+/.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ruby version managers
+/.ruby-version
+/.rvmrc
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Node modules (if using any frontend assets)
+/node_modules/
+/spec/dummy/node_modules/
+
+# Asset compilation
+/spec/dummy/public/assets/
+/spec/dummy/public/packs/
+/spec/dummy/public/packs-test/
+
+# Database
+/spec/dummy/db/schema.rb

@@ -1,0 +1,13 @@
+source "https://rubygems.org"
+
+# Specify the gemspec from the parent directory (includes all dependencies)
+gemspec path: '../..'
+
+# Local dependency for sims-common (provides all testing dependencies)
+gem 'sims-common', path: '../../../sims-common'
+
+gem 'tzinfo-data', platforms: %i[windows jruby]
+
+group :development, :test do
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+end

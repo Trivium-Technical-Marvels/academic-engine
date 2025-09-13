@@ -1,0 +1,161 @@
+plugins:
+- rubocop-rails
+- rubocop-performance
+- rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3.8 # or read from .ruby-version
+  Exclude:
+  - "bin/**/*"
+  - "db/schema.rb"
+  - "db/migrate/*"
+  - "config/**/*"
+  - "node_modules/**/*"
+  - "vendor/**/*"
+  - "tmp/**/*"
+
+  DisplayStyleGuide: true
+  SuggestExtensions: false
+
+# =======================
+# Layout / Style (Formatting)
+# =======================
+Layout/LineLength:
+  Max: 120
+  AllowHeredoc: true
+  AllowURI: true
+
+Layout/EndOfLine:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Width: 2
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: true
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: same_line
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: true
+
+Layout/ArrayAlignment:
+  EnforcedStyle: with_first_element
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/FrozenStringLiteralComment:
+  Enabled: false # don’t force "# frozen_string_literal: true"
+
+Style/Documentation:
+  Enabled: true
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+Style/ClassAndModuleChildren:
+  Enabled: false # allow Foo::Bar instead of nested class
+
+Style/Output:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Naming/PredicatePrefix:
+  Enabled: false
+# =======================
+# Metrics (Keep reasonable)
+# =======================
+Metrics/BlockLength:
+  Exclude:
+  - "spec/**/*"
+  - "test/**/*"
+  - "config/routes.rb"
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 35
+
+Metrics/ClassLength:
+  Max: 250
+
+Metrics/ModuleLength:
+  Max: 250
+
+# =======================
+# Rails Cops
+# =======================
+Rails/SkipsModelValidations:
+  Enabled: true
+
+Rails/DynamicFindBy:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: true
+
+Rails/Blank:
+  Enabled: true
+
+Rails/FindBy:
+  Enabled: true
+
+Rails/NegateInclude:
+  Enabled: true
+
+# =======================
+# RSpec Cops
+# =======================
+RSpec/ExampleLength:
+  Max: 30
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/DescribeClass:
+  Enabled: true
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+# =======================
+# Performance Cops
+# =======================
+Performance/Detect:
+  Enabled: true
+
+Performance/Count:
+  Enabled: true
+
+Performance/RedundantMerge:
+  Enabled: true
