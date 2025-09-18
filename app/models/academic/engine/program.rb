@@ -6,7 +6,6 @@ module Academic::Engine
       validates :name
       validates :code
       validates :duration
-      validates :description
     end
 
     with_options uniqueness: true do
@@ -16,7 +15,6 @@ module Academic::Engine
 
     validates :duration, numericality: { only_integer: true, greater_than: 0 }
 
-    validates :description, length: { maximum: 500 }
 
     scope :active, -> { joins(:program_offerings).distinct }
     # Class helpers

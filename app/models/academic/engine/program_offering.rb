@@ -10,6 +10,7 @@ module Academic::Engine
       validates :program
       validates :intake
       validates :academic_timeline
+      validates :active
     end
 
     validates :program, uniqueness: { scope: :intake }

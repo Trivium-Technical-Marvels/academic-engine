@@ -2,6 +2,9 @@ module Academic::Engine
   class Intake < ApplicationRecord
     enum :admission_type, { spring: 0, fall: 1 }
     has_many :program_offerings, foreign_key: 'academic_engine_intake_id', dependent: :restrict_with_error
+    has_one :requirements_schema, class_name: 'Sims::Common::Schema', as: :schemaable, dependent: :destroy
+    accepts_nested_attributes_for :requirements_schema, allow_destroy: true, reject_if: :all_blank
+
 
     with_options presence: true do
       validates :name
@@ -69,6 +72,7 @@ module Academic::Engine
     def end_date
       return super if has_attribute?(:end_date) && super.present?
       return nil if start_date.blank?
+
       start_date.end_of_year
     end
 

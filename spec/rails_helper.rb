@@ -61,12 +61,14 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
-  # config.use_active_record = false
-
-  # FactoryBot configuration
-  FactoryBot.definition_file_paths = [Pathname.new(__dir__).join('factories').to_s]
-  FactoryBot.find_definitions
+  #
   config.include FactoryBot::Syntax::Methods
+
+  FactoryBot.definition_file_paths = [
+    Pathname.new(__dir__).join('factories').to_s,
+    File.join(File.dirname(__FILE__), '..', '..', 'sims-common', 'spec', 'factories'),
+  ]
+  FactoryBot.find_definitions
 
   # Include ActiveSupport::Testing::TimeHelpers for travel_to method
   config.include ActiveSupport::Testing::TimeHelpers
