@@ -1,16 +1,23 @@
 module Academic::Engine
   class Intake < ApplicationRecord
+
+    include JsonSchemaValidatable
+
+    it_validates_against_instance_schemas
+
     enum :admission_type, { spring: 0, fall: 1 }
     has_many :program_offerings, foreign_key: 'academic_engine_intake_id', dependent: :restrict_with_error
     has_one :requirements_schema, class_name: 'Sims::Common::Schema', as: :schemaable, dependent: :destroy
     accepts_nested_attributes_for :requirements_schema, allow_destroy: true, reject_if: :all_blank
-
 
     with_options presence: true do
       validates :name
       validates :admission_type
       validates :start_date
     end
+
+
+
 
     validates :name, uniqueness: true
     validate :start_date_must_be_on_or_before_end_of_year

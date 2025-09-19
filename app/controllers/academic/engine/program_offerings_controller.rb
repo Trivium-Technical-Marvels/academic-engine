@@ -10,7 +10,7 @@ module Academic::Engine
     private
 
     def model_params
-      params.expect(payload: %i[program_id intake_id academic_timeline_id active mode campus])
+      params.expect(payload: %i[active mode campus program_id intake_id academic_timeline_id])
     end
   end
 end

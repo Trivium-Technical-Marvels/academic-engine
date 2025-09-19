@@ -1,20 +1,19 @@
 module Academic::Engine
   class ProgramOffering < ApplicationRecord
     enum :mode, { full_time: 0, part_time: 1, extension: 2, online: 3 }
+
     belongs_to :program, foreign_key: 'academic_engine_program_id'
     belongs_to :intake, foreign_key: 'academic_engine_intake_id'
     belongs_to :academic_timeline, foreign_key: 'academic_engine_academic_timeline_id'
 
+    # Create simple aliases for the foreign key columns
+    alias_attribute :program_id, :academic_engine_program_id
+    alias_attribute :intake_id, :academic_engine_intake_id
+    alias_attribute :academic_timeline_id, :academic_engine_academic_timeline_id
+
     with_options presence: true do
       validates :mode
-      validates :program
-      validates :intake
-      validates :academic_timeline
-      validates :active
     end
-
-    validates :program, uniqueness: { scope: :intake }
-    validates :intake, uniqueness: { scope: :academic_timeline }
 
     scope :full_time, -> { where(mode: :full_time) }
     scope :part_time, -> { where(mode: :part_time) }
