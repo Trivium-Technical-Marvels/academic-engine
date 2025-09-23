@@ -14,6 +14,7 @@ module Academic::Engine
     with_options presence: true do
       validates :mode
     end
+    validates :program, uniqueness: { scope: %i[intake academic_timeline mode,campus]}
 
     scope :full_time, -> { where(mode: :full_time) }
     scope :part_time, -> { where(mode: :part_time) }

@@ -9,5 +9,6 @@ FactoryBot.define do
           minimum_gpa: { type: 'number', minimum: 2.5 },
           english_test: { type: 'string', enum: %w[IELTS TOEFL] }, }, }
     end
+  
   end
 end

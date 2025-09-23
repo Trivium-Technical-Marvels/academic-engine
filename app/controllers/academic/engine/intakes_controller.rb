@@ -7,13 +7,10 @@ module Academic::Engine
       define_method(action, &method_body)
     end
 
-    
-
     private
 
     def model_params
-      params.expect(payload: [:name, :admission_type, :start_date, :end_date,
-                              { requirements_schema_attributes: [:id, :name, :_destroy, { schema: {} }] },])
+      params.expect(payload: %i[name admission_type start_date end_date schema_id])
     end
   end
 end

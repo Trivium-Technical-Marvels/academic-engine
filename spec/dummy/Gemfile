@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 gemspec path: '../..'
 
 # Local dependency for sims-common (provides all testing dependencies)
+gem 'puma'
 gem 'sims-common', path: '../../../sims-common'
-
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do

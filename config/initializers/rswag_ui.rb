@@ -8,7 +8,8 @@ Rswag::Ui.configure do |c|
   # (under openapi_root) as JSON or YAML endpoints, then the list below should
   # correspond to the relative paths for those endpoints.
 
-  c.swagger_endpoint '/api-docs/v1/swagger.yaml', 'API V1 Docs'
+  # Rswag UI v2.x uses swagger_endpoint. It will be renamed to openapi_endpoint in v3.
+  c.swagger_endpoint '/academics/academic-api-docs/v1/openapi.yaml', 'Academic API V1 Docs'
 
   # Add Basic Auth in case your API is private
   # c.basic_auth_enabled = true

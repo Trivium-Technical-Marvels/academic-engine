@@ -8,7 +8,6 @@ RSpec.configure do |config|
   # to ensure that it's configured to serve Swagger from the same folder
   config.openapi_root = Rails.root.join('swagger').to_s
 
-
   config.before(:each, type: :request) do
     allow_any_instance_of(Academic::Engine::ApplicationController)
       .to receive(:current_user)
@@ -22,25 +21,19 @@ RSpec.configure do |config|
   # document below. You can override this behavior by adding a openapi_spec tag to the
   # the root example_group in your specs, e.g. describe '...', openapi_spec: 'v2/swagger.json'
   config.openapi_specs = {
-    'v1/swagger.yaml' => {
+    'v1/openapi.yaml' => {
       openapi: '3.0.1',
       info: {
         title: 'API V1',
-        version: 'v1'
-      },
+        version: 'v1', },
       paths: {},
       servers: [
         {
           url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
-            }
-          }
-        }
-      ]
-    }
-  }
+              default: 'www.example.com' } }, },
+      ], } }
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
   # The openapi_specs configuration option has the filename including format in
@@ -48,3 +41,4 @@ RSpec.configure do |config|
   # Defaults to json. Accepts ':json' and ':yaml'.
   config.openapi_format = :yaml
 end
+
