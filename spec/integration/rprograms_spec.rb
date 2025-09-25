@@ -15,12 +15,74 @@ RSpec.describe 'Academic::Engine::Programs API', type: :request do
         let(:current_user) { registrar }
         before { create_list(:program, 3) }
 
+        schema type: :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                records: {
+                  type:  :array,
+                  items: {
+                    type:       :object,
+                    properties: {
+                      id:       { type: :integer },
+                      name:     { type: :string },
+                      code:     { type: :string },
+                      duration: { type: :integer },
+                      active:   { type: :boolean }
+                    },
+                    required:   %w[id name code duration active]
+                  }
+                }
+              },
+              required:   %w[records]
+            },
+            meta:    {
+              type:       :object,
+              properties: {
+                pagination: { type: :object }
+              }
+            }
+          },
+          required: %w[payload meta]
+
         run_test!
       end
 
       response(200, 'successful for dean') do
         let(:current_user) { dean }
         before { create_list(:program, 3) }
+
+        schema type: :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                records: {
+                  type:  :array,
+                  items: {
+                    type:       :object,
+                    properties: {
+                      id:       { type: :integer },
+                      name:     { type: :string },
+                      code:     { type: :string },
+                      duration: { type: :integer },
+                      active:   { type: :boolean }
+                    },
+                    required:   %w[id name code duration active]
+                  }
+                }
+              },
+              required:   %w[records]
+            },
+            meta:    {
+              type:       :object,
+              properties: {
+                pagination: { type: :object }
+              }
+            }
+          },
+          required: %w[payload meta]
 
         run_test!
       end
@@ -40,25 +102,66 @@ RSpec.describe 'Academic::Engine::Programs API', type: :request do
       tags 'Programs'
       consumes 'application/json'
       produces 'application/json'
-      parameter name: :payload, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string },
-          code: { type: :string },
-          duration: { type: :integer },
-          active: { type: :boolean }, },
-        required: %w[name code duration], }
+      parameter name: :payload,
+        in: :body,
+        schema: {
+          type:       :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                name:     { type: :string },
+                code:     { type: :string },
+                duration: { type: :integer },
+                active:   { type: :boolean }
+              },
+              required:   %w[name code duration]
+            }
+          },
+          required:   %w[payload]
+        }
 
       response(201, 'created by registrar') do
         let(:current_user) { registrar }
         let(:payload) do
           {
             payload: {
-              name: 'Computer Science',
-              code: 'CS101',
+              name:     'Computer Science',
+              code:     'CS101',
               duration: 4,
-              active: true, } }
+              active:   true
+            }
+          }
         end
+
+        schema type: :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                record: {
+                  type:       :object,
+                  properties: {
+                    id:       { type: :integer },
+                    name:     { type: :string },
+                    code:     { type: :string },
+                    duration: { type: :integer },
+                    active:   { type: :boolean }
+                  },
+                  required:   %w[id name code duration active]
+                }
+              },
+              required:   %w[record]
+            },
+            meta:    {
+              type:       :object,
+              properties: {
+                pagination: { type: :object }
+              }
+            }
+          },
+          required: %w[payload meta]
+
         run_test!
       end
 
@@ -88,26 +191,95 @@ RSpec.describe 'Academic::Engine::Programs API', type: :request do
         let(:program) { create(:program) }
         let(:id) { program.id }
 
+        schema type: :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                record: {
+                  type:       :object,
+                  properties: {
+                    id:       { type: :integer },
+                    name:     { type: :string },
+                    code:     { type: :string },
+                    duration: { type: :integer },
+                    active:   { type: :boolean }
+                  },
+                  required:   %w[id name code duration active]
+                }
+              },
+              required:   %w[record]
+            },
+            meta:    {
+              type:       :object,
+              properties: {
+                pagination: { type: :object }
+              }
+            }
+          },
+          required: %w[payload meta]
+
         run_test!
       end
+
       response(200, 'successful for dean') do
         let(:current_user) { dean }
         let(:program) { create(:program) }
         let(:id) { program.id }
 
-        response(404, 'not found') do
-          let(:current_user) { registrar }
-          let(:id) { 'invalid' }
-          run_test!
-        end
+        schema type: :object,
+          properties: {
+            payload: {
+              type:       :object,
+              properties: {
+                record: {
+                  type:       :object,
+                  properties: {
+                    id:       { type: :integer },
+                    name:     { type: :string },
+                    code:     { type: :string },
+                    duration: { type: :integer },
+                    active:   { type: :boolean }
+                  },
+                  required:   %w[id name code duration active]
+                }
+              },
+              required:   %w[record]
+            },
+            meta:    {
+              type:       :object,
+              properties: {
+                pagination: { type: :object }
+              }
+            }
+          },
+          required: %w[payload meta]
+
+        run_test!
+      end
+
+      response(404, 'not found') do
+        let(:current_user) { registrar }
+        let(:id) { 'invalid' }
+        run_test!
       end
 
       put('Update a program') do
         tags 'Programs'
         consumes 'application/json'
-        parameter name: :payload, in: :body, schema: {
-          type: :object,
-          properties: { name: { type: :string } }, }
+        parameter name: :payload,
+          in: :body,
+          schema: {
+            type:       :object,
+            properties: {
+              payload: {
+                type:       :object,
+                properties: { name: { type: :string } },
+                required:   %w[name]
+              }
+            },
+            required:   %w[payload]
+          }
 
         let(:program) { create(:program) }
         let(:id) { program.id }
@@ -115,6 +287,35 @@ RSpec.describe 'Academic::Engine::Programs API', type: :request do
         response(200, 'updated by registrar') do
           let(:current_user) { registrar }
           let(:payload) { { payload: { name: 'Updated Program' } } }
+
+          schema type: :object,
+            properties: {
+              payload: {
+                type:       :object,
+                properties: {
+                  record: {
+                    type:       :object,
+                    properties: {
+                      id:       { type: :integer },
+                      name:     { type: :string },
+                      code:     { type: :string },
+                      duration: { type: :integer },
+                      active:   { type: :boolean }
+                    },
+                    required:   %w[id name code duration active]
+                  }
+                },
+                required:   %w[record]
+              },
+              meta:    {
+                type:       :object,
+                properties: {
+                  pagination: { type: :object }
+                }
+              }
+            },
+            required: %w[payload meta]
+
           run_test!
         end
 
@@ -137,6 +338,25 @@ RSpec.describe 'Academic::Engine::Programs API', type: :request do
 
         response(200, 'deleted by registrar') do
           let(:current_user) { registrar }
+
+          schema type: :object,
+            properties: {
+              payload: {
+                type:       :object,
+                properties: {
+                  message: { type: :string }
+                },
+                required:   %w[message]
+              },
+              meta:    {
+                type:       :object,
+                properties: {
+                  pagination: { type: :object }
+                }
+              }
+            },
+            required: %w[payload meta]
+
           run_test!
         end
         response(403, 'forbidden for dean') do
