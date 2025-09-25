@@ -4,7 +4,7 @@ module Academic::Engine
 
     has_many :program_offerings, dependent: :restrict_with_error, foreign_key: 'academic_engine_academic_timeline_id'
 
-    enum :type, { semester: 0, quarter: 1, trimester: 2 }
+    enum :timeline_type, { semester: 0, quarter: 1, trimester: 2 }
 
     with_options presence: true do
       validates :name

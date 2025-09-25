@@ -1,19 +1,19 @@
 plugins:
-  - rubocop-rails
-  - rubocop-performance
-  - rubocop-rspec
+- rubocop-rails
+- rubocop-performance
+- rubocop-rspec
 
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2 # or read from .ruby-version
   Exclude:
-    - "bin/**/*"
-    - "db/schema.rb"
-    - "db/migrate/*"
-    - "config/**/*"
-    - "node_modules/**/*"
-    - "vendor/**/*"
-    - "tmp/**/*"
+  - "bin/**/*"
+  - "db/schema.rb"
+  - "db/migrate/*"
+  - "config/**/*"
+  - "node_modules/**/*"
+  - "vendor/**/*"
+  - "tmp/**/*"
 
   DisplayStyleGuide: true
   SuggestExtensions: false
@@ -44,36 +44,36 @@ Layout/EmptyLinesAroundModuleBody:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
 
 Layout/HashAlignment:
-  EnforcedHashRocketStyle: key
-  EnforcedColonStyle: key
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
 
 Layout/MultilineHashKeyLineBreaks:
   Enabled: true
 
-Layout/MultilineHashBraceLayout:
-  EnforcedStyle: same_line
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: true
+
+Layout/MultilineArrayLineBreaks:
+  Enabled: true
 
 Layout/ClosingParenthesisIndentation:
   Enabled: true
-
-Layout/ArrayAlignment:
-  EnforcedStyle: with_first_element
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: consistent_comma
-
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: consistent_comma
 
 Style/FrozenStringLiteralComment:
   Enabled: false # don’t force "# frozen_string_literal: true"
 
 Style/Documentation:
-  Enabled: false
+  Enabled: true
 
 Style/HashSyntax:
   EnforcedStyle: ruby19
@@ -94,9 +94,9 @@ Naming/PredicatePrefix:
 # =======================
 Metrics/BlockLength:
   Exclude:
-    - "spec/**/*"
-    - "test/**/*"
-    - "config/routes.rb"
+  - "spec/**/*"
+  - "test/**/*"
+  - "config/routes.rb"
 
 Metrics/MethodLength:
   Max: 30
@@ -116,9 +116,6 @@ Metrics/ModuleLength:
 Rails/SkipsModelValidations:
   Enabled: true
 
-Rails/DynamicFindBy:
-  Enabled: false
-
 Rails/UniqueValidationWithoutIndex:
   Enabled: true
 
@@ -131,6 +128,8 @@ Rails/FindBy:
 Rails/NegateInclude:
   Enabled: true
 
+Rails/StrongParametersExpect:
+  Enabled: false
 # =======================
 # RSpec Cops
 # =======================
@@ -138,7 +137,7 @@ RSpec/ExampleLength:
   Max: 30
 
 RSpec/MultipleExpectations:
-  Max: 5
+  Max: 7
 
 RSpec/NestedGroups:
   Max: 4

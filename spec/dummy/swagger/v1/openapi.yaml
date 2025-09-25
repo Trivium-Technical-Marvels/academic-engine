@@ -1,0 +1,537 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/academics/academic_timelines":
+    get:
+      summary: List all academic timelines
+      tags:
+      - Academic Timelines
+      responses:
+        '200':
+          description: successful for dean
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            start_date:
+                              type: string
+                              format: date
+                            end_date:
+                              type: string
+                              format: date
+                            timeline_type:
+                              type: string
+                            created_at:
+                              type: string
+                              format: datetime
+                            updated_at:
+                              type: string
+                              format: datetime
+                          required:
+                          - id
+                          - name
+                          - start_date
+                          - end_date
+                          - timeline_type
+                          - created_at
+                          - updated_at
+                    required:
+                    - records
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        type: object
+                required:
+                - payload
+                - meta
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+    post:
+      summary: Create an academic timeline
+      tags:
+      - Academic Timelines
+      parameters: []
+      responses:
+        '201':
+          description: created by registrar
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      record:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          start_date:
+                            type: string
+                            format: date
+                          end_date:
+                            type: string
+                            format: date
+                          timeline_type:
+                            type: string
+                          created_at:
+                            type: string
+                            format: datetime
+                          updated_at:
+                            type: string
+                            format: datetime
+                        required:
+                        - id
+                        - name
+                        - start_date
+                        - end_date
+                        - timeline_type
+                        - created_at
+                        - updated_at
+                    required:
+                    - record
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        type: object
+                required:
+                - payload
+                - meta
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                timeline_type:
+                  type: string
+              required:
+              - name
+              - start_date
+              - end_date
+              - timeline_type
+  "/academics/academic_timelines/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show an academic timeline
+      tags:
+      - Academic Timelines
+      responses:
+        '200':
+          description: successful for dean
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: object
+                    properties:
+                      record:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          start_date:
+                            type: string
+                            format: date
+                          end_date:
+                            type: string
+                            format: date
+                          timeline_type:
+                            type: string
+                          created_at:
+                            type: string
+                            format: datetime
+                          updated_at:
+                            type: string
+                            format: datetime
+                        required:
+                        - id
+                        - name
+                        - start_date
+                        - end_date
+                        - timeline_type
+                        - created_at
+                        - updated_at
+                    required:
+                    - record
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        type: object
+                required:
+                - payload
+                - meta
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+        '404':
+          description: not found
+    put:
+      summary: update an academic timeline
+      tags:
+      - Academic Timelines
+      parameters: []
+      responses:
+        '403':
+          description: forbidden for dean
+        '200':
+          description: updated by registrar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+    delete:
+      summary: Delete an academic timeline
+      tags:
+      - Academic Timelines
+      responses:
+        '200':
+          description: deleted by registrar
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+        '404':
+          description: not found
+  "/academics/intakes":
+    get:
+      summary: List all intakes
+      tags:
+      - Intakes
+      responses:
+        '200':
+          description: successful for dean
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+    post:
+      summary: Create an intake
+      tags:
+      - Intakes
+      parameters: []
+      responses:
+        '201':
+          description: created by registrar
+        '403':
+          description: forbidden for dean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                admission_type:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                requirements_schema_attributes:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    schema:
+                      type: object
+              required:
+              - name
+              - admission_type
+              - start_date
+              - end_date
+  "/academics/intakes/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show an intake
+      tags:
+      - Intakes
+      responses:
+        '200':
+          description: successful for dean
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+        '404':
+          description: not found
+    put:
+      summary: update an intake
+      tags:
+      - Intakes
+      parameters: []
+      responses:
+        '403':
+          description: forbidden for dean
+        '200':
+          description: updated by registrar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+    delete:
+      summary: delete an intake
+      tags:
+      - Intakes
+      responses:
+        '200':
+          description: deleted by registrar
+        '403':
+          description: forbidden for dean
+  "/academics/program_offerings":
+    get:
+      summary: List all program offerings
+      tags:
+      - Program Offerings
+      responses:
+        '200':
+          description: successful for dean
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+    post:
+      summary: Create a program offering
+      tags:
+      - Program Offerings
+      parameters: []
+      responses:
+        '201':
+          description: created by registrar
+        '403':
+          description: forbidden for dean
+        '401':
+          description: unauthenticated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    active:
+                      type: boolean
+                    mode:
+                      type: string
+                    campus:
+                      type: string
+                    program_id:
+                      type: integer
+                    intake_id:
+                      type: integer
+                    academic_timeline_id:
+                      type: integer
+                  required:
+                  - active
+                  - mode
+                  - campus
+                  - program_id
+                  - intake_id
+                  - academic_timeline_id
+  "/academics/program_offerings/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show a program offering
+      tags:
+      - Program Offerings
+      responses:
+        '200':
+          description: successful for registrar
+        '404':
+          description: not found
+    put:
+      summary: Update a program offering
+      tags:
+      - Program Offerings
+      parameters: []
+      responses:
+        '200':
+          description: updated by registrar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  properties:
+                    active:
+                      type: boolean
+                    mode:
+                      type: string
+                    campus:
+                      type: string
+    delete:
+      summary: Delete a program offering
+      tags:
+      - Program Offerings
+      responses:
+        '200':
+          description: deleted by registrar
+  "/academics/programs":
+    get:
+      summary: List all programs
+      tags:
+      - Programs
+      responses:
+        '200':
+          description: successful for dean
+        '403':
+          description: forbidden for random user
+        '401':
+          description: unauthenticated
+    post:
+      summary: Create a program
+      tags:
+      - Programs
+      parameters: []
+      responses:
+        '201':
+          description: created by registrar
+        '403':
+          description: forbidden for dean
+        '401':
+          description: unauthenticated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+                duration:
+                  type: integer
+                active:
+                  type: boolean
+              required:
+              - name
+              - code
+              - duration
+  "/academics/programs/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Program ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show a program
+      tags:
+      - Programs
+      responses:
+        '200':
+          description: successful for dean
+        '404':
+          description: not found
+    put:
+      summary: Update a program
+      tags:
+      - Programs
+      parameters: []
+      responses:
+        '200':
+          description: updated by registrar
+        '403':
+          description: forbidden for dean
+        '401':
+          description: unauthenticated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+    delete:
+      summary: Delete a program
+      tags:
+      - Programs
+      responses:
+        '200':
+          description: deleted by registrar
+        '403':
+          description: forbidden for dean
+        '401':
+          description: unauthenticated
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

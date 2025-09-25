@@ -1,7 +1,23 @@
 module Academic::Engine
   class Intake < ApplicationRecord
+    include JsonSchemaValidatable
+
+    it_validates_against_instance_schemas
+
     enum :admission_type, { spring: 0, fall: 1 }
-    has_many :program_offerings, foreign_key: 'academic_engine_intake_id', dependent: :restrict_with_error
+    has_many :program_offerings,
+      foreign_key: 'academic_engine_intake_id',
+      dependent:   :restrict_with_error,
+      inverse_of:  :intake
+
+    # Polymorphic schema association
+    has_one :requirements_schema, class_name: 'Sims::Common::Schema', as: :schemaable, dependent: :destroy
+
+    # Virtual attribute for schema ID (no database field needed)
+    attr_accessor :schema_id
+
+    # Callback to link existing schema when intake is created/updated
+    after_save :link_existing_schema, if: :schema_id_present?
 
     with_options presence: true do
       validates :name
@@ -69,6 +85,7 @@ module Academic::Engine
     def end_date
       return super if has_attribute?(:end_date) && super.present?
       return nil if start_date.blank?
+
       start_date.end_of_year
     end
 
@@ -89,6 +106,25 @@ module Academic::Engine
     end
 
     private
+
+    def schema_id_present?
+      schema_id.present?
+    end
+
+    # Link an existing schema to this intake by updating its polymorphic fields
+    def link_existing_schema
+      schema = Sims::Common::Schema.find_by(id: schema_id)
+      return if schema.blank?
+
+      # Update the schema's polymorphic fields to point to this intake
+      schema.update!(
+        schemaable_type: self.class.name,
+        schemaable_id:   id
+      )
+
+      # Clear the virtual attribute after linking
+      self.schema_id = nil
+    end
 
     def start_date_must_be_on_or_before_end_of_year
       return if start_date.blank?

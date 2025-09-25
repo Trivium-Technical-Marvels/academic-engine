@@ -9,7 +9,6 @@ PATH
       json_schemer
       jwt
       lograge
-      noticed
       pagy
       paper_trail
       pg
@@ -22,7 +21,6 @@ PATH
       sidekiq-cron
       validates_email_format_of
       validates_timeliness
-      validates_url
 
 PATH
   remote: .
@@ -253,8 +251,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.9-x64-mingw-ucrt)
       racc (~> 1.4)
-    noticed (2.8.1)
-      rails (>= 6.1.0)
+    nokogiri (1.18.9-x86_64-linux-gnu)
+      racc (~> 1.4)
     pagy (9.4.0)
     paper_trail (16.0.0)
       activerecord (>= 6.1)
@@ -264,6 +262,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.6.2-x64-mingw-ucrt)
+    pg (1.6.2-x86_64-linux)
     pg_search (2.3.7)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
@@ -281,6 +280,8 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
+    puma (7.0.3)
+      nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.1)
@@ -440,7 +441,6 @@ GEM
     validates_timeliness (8.0.0)
       activemodel (>= 8.0.0, < 9)
       timeliness (>= 0.3.10, < 1)
-    validates_url (9001.0)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -452,6 +452,7 @@ GEM
 
 PLATFORMS
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
   academic-engine!
@@ -464,6 +465,7 @@ DEPENDENCIES
   faker
   lograge
   pry-rails
+  puma (~> 7.0)
   rspec-rails
   rswag-api
   rswag-specs

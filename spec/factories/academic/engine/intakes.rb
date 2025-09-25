@@ -1,35 +1,36 @@
 FactoryBot.define do
   factory :intake, class: 'Academic::Engine::Intake' do
-    start_date { Date.current }
-    admission_type { %i[spring fall].sample }
-    sequence(:name) { |n| "#{Date.current.year} #{%w[Spring Fall].sample} Intake #{n}" }
+    name { generate(:intake_name) }
+    admission_type { %w[fall spring].sample }
+    start_date { Faker::Date.forward(days: 23) }
     end_date { start_date.end_of_year }
 
-    trait :spring do
-      admission_type { :spring }
-      start_date { Date.new(Date.current.year, [1, 2, 3].sample, [1, 15].sample) }
-      end_date { start_date.end_of_year }
-    end
+    # Create with a pre-existing schema (schema-first workflow)
+    trait :with_schema do
+      transient do
+        # Create schema with dummy polymorphic values to satisfy NOT NULL constraint
+        schema do
+          create(:schema,
+            name:            "#{name.downcase.tr(' ', '_')}_requirements_schema",
+            schemaable_type: 'DummyModel',
+            schemaable_id:   999_999,
+            schema:          {
+              '$schema'    => 'https://json-schema.org/draft/2020-12/schema',
+              'type'       => 'object',
+              'properties' => {
+                'gpa' => { 'type' => 'number', 'minimum' => 2.0 }
+              },
+              'required'   => ['gpa']
+            })
+        end
+      end
 
-    trait :fall do
-      admission_type { :fall }
-      start_date { Date.new(Date.current.year, [8, 9, 10].sample, [1, 15].sample) }
-      end_date { start_date.end_of_year }
+      schema_id { schema.id }
     end
+  end
 
-    trait :current do
-      start_date { Date.current }
-      end_date { start_date.end_of_year }
-    end
-
-    trait :past do
-      start_date { Faker::Date.between(from: 1.year.ago, to: Date.current - 1.day) }
-      end_date { start_date.end_of_year }
-    end
-
-    trait :future do
-      start_date { Faker::Date.between(from: Date.current + 1.day, to: Date.current.end_of_year) }
-      end_date { start_date.end_of_year }
-    end
+  # Create intake name sequences to avoid unique constraint violations
+  sequence :intake_name do |n|
+    "Intake #{n}"
   end
 end
